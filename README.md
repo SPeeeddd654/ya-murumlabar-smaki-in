@@ -1,1 +1,0 @@
-# ya-murumlabar-smaki-in
