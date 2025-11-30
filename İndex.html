@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Güzelim, beni affeder misin?</title>
+<style>
+    body {
+        background-color: #ffb6c1; /* Pembe arka plan */
+        font-family: 'Trebuchet MS', sans-serif;
+        text-align: center;
+        color: #fff;
+        overflow: hidden;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    h1 {
+        font-size: 35px;
+        margin-bottom: 50px;
+        text-shadow: 0 0 12px #ff69b4, 0 0 22px #ff1493;
+    }
+
+    .button-container {
+        display: flex;
+        gap: 30px;
+    }
+
+    .btn {
+        padding: 15px 30px;
+        font-size: 22px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        position: relative;
+    }
+
+    #yesBtn {
+        background: #ff69b4;
+        color: #fff;
+        box-shadow: 0 0 12px #ff1493;
+    }
+
+    #noBtn {
+        background: #999;
+        color: #fff;
+        box-shadow: 0 0 12px #666;
+    }
+
+    #message {
+        font-size: 30px;
+        margin-top: 50px;
+        display: none;
+        text-shadow: 0 0 15px #ff69b4, 0 0 25px #ff1493;
+        animation: pop 0.6s forwards;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(0.4); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    .confetti {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background-color: #ff69b4;
+        top: -10px;
+        animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .heart {
+        position: fixed;
+        font-size: 26px;
+        animation: floatUp 4s linear infinite;
+        opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+        from { transform: translateY(100vh) scale(0.8); }
+        to { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<h1 id="question">Güzelim... Bu salak eşşeği affeder misin? 🤡💖</h1>
+
+<div class="button-container">
+    <button class="btn" id="yesBtn">Evet</button>
+    <button class="btn" id="noBtn">Hayır</button>
+</div>
+
+<div id="message"></div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const msg = document.getElementById("message");
+    const question = document.getElementById("question");
+
+    let step = 1;
+
+    noBtn.addEventListener("mousedown", () => {
+        const x = Math.random() * (window.innerWidth - 150);
+        const y = Math.random() * (window.innerHeight - 150);
+        noBtn.style.position = "absolute";
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+
+        if (step === 1) {
+            question.innerHTML = "Eşşeğini bu zalim dünyada yalnız mı bırakacaksın? 😢💔";
+            step = 2;
+        } else if (step === 2) {
+            question.innerHTML = "Lütfeeen Güzelim... Sensiz kaldığım günler büyük ceza oldu prensesim 🙇‍♂️💚✨";
+            step = 3;
+        } else {
+            question.innerHTML = "N’olur Güzelim... Seni unutamıyorum 😢💔 Senden başkasını sevemem... Affet beni prensesim 😭💖";
+        }
+    });
+
+    yesBtn.addEventListener("click", () => {
+        msg.style.display = "block";
+        msg.innerHTML = "PRENSESSSİMMM GÜZELİMMM 😍💖✨ Seni çok seviyorum! 💕💚🌸💘 Artık hep birlikteyiz! 💖💞";
+        createConfetti();
+        createHearts();
+    });
+
+    function createConfetti() {
+        for (let i = 0; i < 200; i++) {
+            const konf = document.createElement("div");
+            konf.classList.add("confetti");
+            konf.style.left = Math.random() * window.innerWidth + "px";
+            konf.style.backgroundColor = Math.random() > 0.5 ? "#ff69b4" : "#ffc0cb";
+            konf.style.animationDuration = (2 + Math.random() * 3) + "s";
+            document.body.appendChild(konf);
+            setTimeout(() => konf.remove(), 4000);
+        }
+    }
+
+    function createHearts() {
+        const emojis = ["💖", "💚", "💘", "💞", "💕"];
+        for (let i = 0; i < 35; i++) {
+            const h = document.createElement("div");
+            h.classList.add("heart");
+            h.style.left = Math.random() * window.innerWidth + "px";
+            h.style.animationDuration = (3 + Math.random() * 3) + "s";
+            h.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 5000);
+        }
+    }
+</script>
+
+</body>
+</html>
